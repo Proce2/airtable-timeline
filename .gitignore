@@ -1,0 +1,25 @@
+# Assignment files (not part of the actual project)
+INSTRUCTIONS.md
+.github/
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+.parcel-cache/
+
+# Environment variables
+.env
+.env.local
+
+# OS generated files (cross-platform)
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log

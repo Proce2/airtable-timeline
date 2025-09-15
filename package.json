@@ -1,0 +1,15 @@
+{
+  "name": "airtable-timeline",
+  "version": "1.0.0",
+  "description": "Airtable Timeline",
+  "scripts": {
+    "start": "parcel src/index.html --open"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.0.0"
+  }
+}

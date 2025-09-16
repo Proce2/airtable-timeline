@@ -1,5 +1,268 @@
+/* CSS Variables for theming */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --container-bg: #fafafa;
+  --border-color: #ddd;
+  --header-border: #ccc;
+  --lane-border: #eee;
+  --controls-bg: #f8f9fa;
+  --controls-border: #dee2e6;
+  --button-bg: white;
+  --button-hover: #f8f9fa;
+}
+
+.dark-mode {
+  --bg-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --container-bg: #2d2d2d;
+  --border-color: #444;
+  --header-border: #555;
+  --lane-border: #333;
+  --controls-bg: #2a2a2a;
+  --controls-border: #444;
+  --button-bg: #3a3a3a;
+  --button-hover: #4a4a4a;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 20px;
+  padding: 15px;
+  background-color: var(--controls-bg);
+  border: 1px solid var(--controls-border);
+  border-radius: 6px;
+}
+
+.controls button {
+  padding: 8px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.controls button:hover {
+  background-color: var(--button-hover);
+}
+
+.controls button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.zoom-info {
+  font-size: 14px;
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-left: auto;
+}
+
+.drag-info {
+  font-size: 14px;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.timeline-container {
+  margin: 20px;
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  background-color: var(--container-bg);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.timeline-header {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--header-border);
+  flex-direction: column;
+}
+
+.lane-label-header {
+  width: 100px;
+  font-weight: bold;
+  color: var(--text-color);
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+
+.timeline-scale-container {
+  flex: 1;
+  position: relative;
+  height: 60px;
+  margin-left: 110px;
+}
+
+.timeline-months {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 25px;
+  display: flex;
+}
+
+.month-marker {
+  position: absolute;
+  top: 0;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--text-color);
+  border-right: 1px solid var(--border-color);
+  background-color: var(--container-bg);
+}
+
+.timeline-days {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  right: 0;
+  height: 35px;
+}
+
+.day-marker {
+  position: absolute;
+  width: 1px;
+  height: 35px;
+  border-left: 1px solid var(--lane-border);
+  font-size: 10px;
+  text-align: center;
+}
+
+.day-marker.monday {
+  border-left: 2px solid var(--border-color);
+}
+
+.day-marker.first-of-month {
+  border-left: 3px solid var(--header-border);
+}
+
+.day-number {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  font-weight: bold;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+
+.day-name {
+  position: absolute;
+  left: 2px;
+  top: 15px;
+  color: var(--text-color);
+  opacity: 0.7;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.timeline-lane {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  min-height: 40px;
+  border-bottom: 1px solid var(--lane-border);
+}
+
+.lane-label {
+  width: 100px;
+  font-weight: bold;
+  color: var(--text-color);
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+.lane-items {
+  position: relative;
+  height: 35px;
+  flex: 1;
+  margin-left: 10px;
+}
+
+.timeline-item {
+  position: absolute;
+  background-color: #4a90e2;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  height: 30px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  cursor: grab;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.timeline-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.timeline-item:active {
+  cursor: grabbing;
+}
+
+.timeline-item.dragging {
+  opacity: 0.6;
+  z-index: 10;
+}
+
+.item-name {
+  font-weight: bold;
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  padding: 1px;
+  border-radius: 2px;
+}
+
+.item-name:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+.item-name-input {
+  font-weight: bold;
+  font-size: 11px;
+  line-height: 1.2;
+  background: white;
+  color: black;
+  border: 1px solid #007bff;
+  border-radius: 2px;
+  padding: 1px 3px;
+  width: 100%;
+  outline: none;
+}
+
+.item-dates {
+  font-size: 9px;
+  opacity: 0.8;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

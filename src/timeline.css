@@ -1,0 +1,125 @@
+/* Timeline base styles */
+.timeline {
+  padding: 12px;
+}
+
+.timeline-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.zoom-label {
+  font-size: 14px;
+  color: #333;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.zoom-select {
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.timeline-scroller {
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.timeline-content {
+  position: relative;
+  min-height: 200px;
+}
+
+.ruler {
+  position: sticky;
+  top: 0;
+  height: 28px;
+  background: #fafafa;
+  border-bottom: 1px solid #eee;
+  z-index: 2;
+}
+
+.ruler-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: #e5e5e5;
+}
+
+.tick {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #e5e5e5;
+}
+
+.tick-label {
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  font-size: 10px;
+  color: #666;
+  white-space: nowrap;
+}
+
+.lanes {
+  position: relative;
+}
+
+.lane {
+  position: relative;
+  height: 44px;
+  border-bottom: 1px dashed #eee;
+  background-image: linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+  background-size: 56px 100%;
+}
+
+.timeline-item {
+  position: absolute;
+  top: 8px;
+  height: 28px;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  color: #173042;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.timeline-item:focus {
+  outline: 2px solid #1a73e8;
+  outline-offset: 2px;
+}
+
+.item-label {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .item-label {
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .lane {
+    height: 40px;
+  }
+  .timeline-item {
+    height: 24px;
+    top: 8px;
+  }
+}
+

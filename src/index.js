@@ -5,10 +5,9 @@ import Timeline from "./Timeline.js";
 
 function App() {
   return (
-    <div>
-      <h2>Airtable Timeline</h2>
+    <main className="app-shell">
       <Timeline items={timelineItems} />
-    </div>
+    </main>
   );
 }
 

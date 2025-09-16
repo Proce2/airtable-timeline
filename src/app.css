@@ -32,17 +32,21 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 .controls {
   display: flex;
   gap: 10px;
   align-items: center;
-  margin: 20px;
+  margin: 0;
   padding: 15px;
   background-color: var(--controls-bg);
   border: 1px solid var(--controls-border);
-  border-radius: 6px;
+  border-radius: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .controls button {
@@ -78,111 +82,123 @@ body {
   font-weight: bold;
 }
 
-.timeline-container {
-  margin: 20px;
+.timeline-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100vw;
   border: 1px solid var(--border-color);
+  margin: 0;
+  background-color: var(--container-bg);
+}
+
+.timeline-container {
   padding: 20px;
   background-color: var(--container-bg);
   transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.timeline-header {
-  display: flex;
-  align-items: stretch;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid var(--header-border);
-  flex-direction: column;
-}
-
-.lane-label-header {
-  width: 100px;
-  font-weight: bold;
-  color: var(--text-color);
-  font-size: 16px;
-  padding-bottom: 10px;
-}
-
-.timeline-scale-container {
-  flex: 1;
+  box-sizing: border-box;
   position: relative;
-  height: 60px;
-  margin-left: 110px;
 }
 
-.timeline-months {
+.interval-header {
+  position: relative;
+  height: 70px;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 20px;
+  background-color: var(--controls-bg);
+  width: 100%;
+  overflow: visible;
+}
+
+.month-row {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 25px;
-  display: flex;
+  height: 35px;
 }
 
-.month-marker {
+.day-row {
   position: absolute;
-  top: 0;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 35px;
+  left: 0;
+  right: 0;
+  height: 35px;
+}
+
+.interval-marker.month-marker {
+  position: absolute;
+  top: 5px;
   font-weight: bold;
   font-size: 14px;
   color: var(--text-color);
-  border-right: 1px solid var(--border-color);
-  background-color: var(--container-bg);
+  white-space: nowrap;
+  padding: calc(5px * var(--zoom, 1)) calc(10px * var(--zoom, 1));
+  background-color: var(--button-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
 }
 
-.timeline-days {
-  position: absolute;
-  top: 25px;
-  left: 0;
-  right: 0;
-  height: 35px;
-}
 
 .day-marker {
   position: absolute;
-  width: 1px;
-  height: 35px;
-  border-left: 1px solid var(--lane-border);
-  font-size: 10px;
+  top: 5px;
+  font-weight: normal;
+  font-size: inherit;
+  color: var(--text-color);
+  white-space: nowrap;
+  padding: calc(2px * var(--zoom, 1)) calc(6px * var(--zoom, 1));
+  background-color: var(--container-bg);
+  border: 1px solid var(--lane-border);
+  border-radius: 2px;
+  opacity: 0.85;
   text-align: center;
-}
-
-.day-marker.monday {
-  border-left: 2px solid var(--border-color);
+  min-width: calc(24px * var(--zoom, 1));
+  margin-right: 2px;
+  box-sizing: border-box;
+  z-index: 2;
 }
 
 .day-marker.first-of-month {
-  border-left: 3px solid var(--header-border);
+  font-weight: bold;
+  background-color: var(--button-bg);
+  border-color: var(--border-color);
+  opacity: 1;
 }
 
 .day-number {
-  position: absolute;
-  left: 2px;
-  top: 2px;
+  font-size: 10px;
   font-weight: bold;
-  color: var(--text-color);
-  white-space: nowrap;
 }
 
 .day-name {
-  position: absolute;
-  left: 2px;
-  top: 15px;
-  color: var(--text-color);
-  opacity: 0.7;
   font-size: 9px;
-  white-space: nowrap;
+  opacity: 0.7;
 }
+
+.day-marker.friday {
+  font-weight: bold;
+  color: #007bff;
+  background-color: #e6f0ff;
+  border-color: #007bff;
+  opacity: 1;
+}
+
+.day-marker.highlighted {
+  background-color: #e6f0ff;
+  border-color: #007bff;
+  color: #007bff;
+  box-shadow: 0 0 8px #007bff;
+  z-index: 10;
+}
+
 
 .timeline-lane {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
-  min-height: 40px;
+  margin-bottom: 12px;
+  min-height: calc(56px * var(--zoom, 1));
   border-bottom: 1px solid var(--lane-border);
+  position: relative;
 }
 
 .lane-label {
@@ -193,26 +209,35 @@ body {
   font-size: 14px;
 }
 
+
 .lane-items {
   position: relative;
-  height: 35px;
+  height: calc(48px * var(--zoom, 1));
   flex: 1;
   margin-left: 10px;
+  overflow: visible;
+  border: 1px solid transparent;
 }
+
+
 
 .timeline-item {
   position: absolute;
   background-color: #4a90e2;
   color: white;
-  padding: 4px 8px;
+  padding: calc(4px * var(--zoom, 1)) calc(8px * var(--zoom, 1));
   border-radius: 4px;
   display: flex;
   flex-direction: column;
-  height: 30px;
+  height: calc(38px * var(--zoom, 1));
+  top: 0;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   cursor: grab;
   transition: transform 0.1s ease, box-shadow 0.1s ease;
+  z-index: 1;
+  margin-right: 4px;
+  font-size: inherit;
 }
 
 .timeline-item:hover {

@@ -1,5 +1,6 @@
 /**
  * Takes an array of items and assigns them to lanes based on start/end dates.
+ * Prevents any overlapping by checking all items in each lane.
  * @returns an array of arrays containing items.
  */
 function assignLanes(items) {
@@ -8,19 +9,42 @@ function assignLanes(items) {
   );
   const lanes = [];
 
-  function assignItemToLane(item) {
-      for (const lane of lanes) {
-          if (new Date(lane[lane.length - 1].end) < new Date(item.start)) {
-              lane.push(item);
-              return;
-          }
+  function hasOverlap(item1, item2) {
+    const start1 = new Date(item1.start);
+    const end1 = new Date(item1.end);
+    const start2 = new Date(item2.start);
+    const end2 = new Date(item2.end);
+    
+    // Check if dates overlap (including touching dates)
+    return start1 <= end2 && start2 <= end1;
+  }
+
+  function canPlaceInLane(item, lane) {
+    // Check if item overlaps with ANY item in the lane
+    for (const existingItem of lane) {
+      if (hasOverlap(item, existingItem)) {
+        return false;
       }
-      lanes.push([item]);
+    }
+    return true;
+  }
+
+  function assignItemToLane(item) {
+    // Try to find an existing lane where this item can fit
+    for (const lane of lanes) {
+      if (canPlaceInLane(item, lane)) {
+        lane.push(item);
+        return;
+      }
+    }
+    // If no existing lane works, create a new lane
+    lanes.push([item]);
   }
 
   for (const item of sortedItems) {
-      assignItemToLane(item);
+    assignItemToLane(item);
   }
+  
   return lanes;
 }
 
